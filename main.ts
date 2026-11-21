@@ -3,7 +3,7 @@
 // the kit's buildDossier. Node 22, standard library only — `node main.ts`, no
 // flags, no build, no install.
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -29,5 +29,9 @@ const dossier = buildDossier(out, {
   game_max_bytes: 50331648,
   game_path_max_bytes: 1000
 });
-writeFileSync(join(out, 'dossier.json'), dossier);
+const dossierPath = join(out, 'dossier.json');
+writeFileSync(dossierPath, dossier);
+if (!existsSync(dossierPath) || statSync(dossierPath).size === 0) {
+  throw new Error(`dossier.json missing or empty at ${dossierPath} after write`);
+}
 console.log(`dossier.json written to ${out} (${dossier.length} bytes)`);

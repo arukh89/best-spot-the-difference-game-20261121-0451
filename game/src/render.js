@@ -1,5 +1,5 @@
 // Twin Worlds — all screen rendering: panels, HUD, markers, menu, overlays.
-import { W, H, PANEL, PANEL2, TIME_PER_SCENE, SCENE_NAMES } from './config.js';
+import { W, H, PANEL, PANEL2, TIME_PER_SCENE } from './config.js';
 import { SCENES } from './scenes.js';
 
 const CREAM = '#f6ecd9';
